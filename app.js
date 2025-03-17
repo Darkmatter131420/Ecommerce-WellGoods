@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productRoutes = require('./routes/products');
 var minioRoutes = require('./routes/minio.js')
+var creditRoutes = require('./routes/credit.js')
 
 const UserController = require('./controller/UserController');
 
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 app.use("/user", usersRouter);
 app.use("/product", productRoutes);
 app.use(minioRoutes)
+app.use("/credit", creditRoutes)
 
 // 注册登录
 app.post('/register', UserController.register);
