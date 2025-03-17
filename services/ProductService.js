@@ -83,12 +83,17 @@ class ProductService {
    * @param {number} query.limit - 每页数量
    */
   static async getAllProducts(currentUser, query = {}) {
-    const { page = 1, limit = 10 } = query;
+    const { page = 1, limit = 10, status } = query;
     const filter = {};
 
     // 普通用户只能查看自己的商品
     if (currentUser.permission !== 1) {
       filter.merchant_id = currentUser._id;
+    }
+
+    // 状态筛选
+    if (status !== undefined) {
+      filter.status = status;
     }
 
     const [results, total] = await Promise.all([
@@ -144,15 +149,11 @@ class ProductService {
       const categoryList = Array.isArray(categories) ? categories : [categories];
       filter.category = { $in: categoryList.map(c => new RegExp(c, 'i')) };
     }
-  
-    // // 查询优化：添加索引提示
-    // const queryOptions = {
-    //   skip: (page - 1) * limit,
-    //   limit: Number(limit),
-    //   sort: { create_time: -1 },
-    //   collation: { locale: 'zh', strength: 2 }, // 中文排序规则
-    //   hint: 'name_1_description_1' // 强制使用索引
-    // };
+
+    // 状态筛选
+    if (filters.status) {
+      filter.status = parseInt(filters.status);
+    }
   
     const [results, total] = await Promise.all([
       Product.find(filter, null)
