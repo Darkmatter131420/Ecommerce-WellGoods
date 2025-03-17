@@ -2,15 +2,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
+require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productRoutes = require('./routes/products');
+var minioRoutes = require('./routes/minio.js')
 
 const UserController = require('./controller/UserController');
 
 var app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -20,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use("/user", usersRouter);
 app.use("/product", productRoutes);
-
+app.use(minioRoutes)
 
 // 注册登录
 app.post('/register', UserController.register);

@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: null
+    default: "https://cdn.vuetifyjs.com/images/john.jpg"
   }
 });
 
