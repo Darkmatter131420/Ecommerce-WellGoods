@@ -122,6 +122,8 @@ class ProductService {
       minPrice, 
       maxPrice, 
       categories,
+      status,  // 新增状态字段
+      community, // 新增社团字段
       ...filters 
     } = body;
     const filter = { ...filters };
@@ -132,7 +134,8 @@ class ProductService {
       filter.$or = [
         { name: searchRegex },
         { description: searchRegex },
-        { category: searchRegex }
+        { category: searchRegex },
+        { community: searchRegex } // 社团字段搜索
       ];
     }
   
@@ -151,12 +154,19 @@ class ProductService {
     }
 
     // 状态筛选
-    if (filters.status) {
-      filter.status = parseInt(filters.status);
+    if (status) {
+      filter.status = status;
+    }
+
+    // 社团筛选
+    if (community) {
+      filter.community = community;
     }
   
     const [results, total] = await Promise.all([
       Product.find(filter, null)
+        .skip((page - 1) * limit)
+        .limit(Number(limit))
         .populate('merchant', 'name')
         .sort({ create_time: -1 })
         .lean(),

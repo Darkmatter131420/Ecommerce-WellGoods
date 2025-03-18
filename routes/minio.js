@@ -100,6 +100,7 @@ router.get('/download/:objectName', (req, res) => {
       }
       res.json({ 
         url: presignedUrl,
+        objectName: objectName,
         expires: new Date(Date.now() + expiry * 1000).toISOString()
       });
     }

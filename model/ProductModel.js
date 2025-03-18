@@ -53,6 +53,11 @@ const productSchema = new mongoose.Schema({
     default: ["https://pic3.zhimg.com/v2-d022450bd11f7e960ae71d83d0d4b0fe_r.jpg"],
     trim: true
   },
+  community: {         // 社团信息（示例：能坐不站社）
+    type: String,
+    required: true,
+    trim: true
+  },
   status: {
     type: Number,
     enum: [0, 1, 2],
