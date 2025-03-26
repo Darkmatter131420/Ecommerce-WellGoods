@@ -17,8 +17,8 @@ class UserController {
 
       console.log(req.body)
       const user = await UserService.register(req.body);
-      res.status(201).json({
-        code: 201,
+      res.status(200).json({
+        code: 200,
         data: user,
         message: '注册成功'
       });

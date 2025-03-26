@@ -8,8 +8,8 @@ class ProductController {
   static async create(req, res) {
     try {
       const product = await ProductService.createProduct(req.body, req.authUser);
-      res.status(201).json({
-        code: 201,
+      res.status(200).json({
+        code: 200,
         data: product,
         message: '商品创建成功'
       });

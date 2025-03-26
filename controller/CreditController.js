@@ -8,7 +8,7 @@ class CreditController {
   static async create(req, res) {
     try {
       const credit = await CreditService.createCredit(req.body, req.authUser);
-      res.status(201).json({
+      res.status(200).json({
         code: 201,
         message: '账户创建成功',
         data: {

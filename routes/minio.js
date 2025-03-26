@@ -71,7 +71,7 @@ router.post('/upload', upload.single('file'), async (req, res) => {
           console.error('生成图片链接失败:', err);
           return res.status(500).json({ error: '无法生成图片链接' });
         }
-        res.status(201).json({ 
+        res.status(200).json({ 
           message: '文件上传成功',
           url: presignedUrl
         });

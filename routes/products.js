@@ -8,6 +8,11 @@ const { authMiddleware, adminMiddleware } = require('./userMiddleWare');
 router.get('/:id', ProductController.getDetails);
 router.post('/search', ProductController.search);
 
+// router.get('/', ProductController.list);
+// router.post('/', ProductController.create);
+
+// router.put('/:id', ProductController.update);
+
 // 需要登录验证的接口
 router.use(authMiddleware);
 router.route('/')
